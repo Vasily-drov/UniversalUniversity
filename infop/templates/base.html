@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+
+
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper">
+      <!-- <a href="{% url 'index' %}" class="brand-logo"><img src="{% static 'img/logo.svg' %}" alt="sdf"></img>INFO G</a> -->
+
+      <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-down">
+
+        <li><a href="{% url 'show-notifications' %}"><i class="material-icons left">favorite_border</i><span class="new badge amber">{{ count_notifications }}</span></a></li>
+        <li><a href="{% url 'newpost' %}"><i class="material-icons">add_box</i></a></li>
+        <li><a href="{% url 'profile' nav_profile.user.username %}"><i class="material-icons">person_pin</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+  <ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <a href="#name"><span class="black-text name">{{ nav_profile.user.first_name }} {{ nav_profile.user.last_name }}</span></a>
+      <a href="#email"><span class="black-text email">{{ nav_profile.user.email }}</span></a>
+    </div></li>
+    <li><a href="{% url 'myfans' %}"><i class="material-icons">star</i>{{ fans }}     Purchases</a></li>
+    <li><a href="{% url 'myfollows' %}"><i class="material-icons">people</i>{{ follows }}     Subscriptions</a></li>
+    <!-- <li><a href="{% url 'bookmarks' %}"><i class="material-icons">call_missed_outgoing</i>Statistic</a></li> -->
+
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Payments</a></li>
+    <li><a href="#!"><i class="material-icons">credit_card</i>Your payment methods</a></li>
+    <li><a href="#!"><i class="material-icons">account_balance</i>Your payout methods</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="{% url 'edit-profile' %}"><i class="material-icons">settings</i>Settings</a></li>
+    <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Log out</a></li>
+  </ul>
+
+
+<div class="container">
+  <div class="row">
+
+    {% block banner %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+    
+  </div>
+</div>
+
+
+    {% block icons %}
+    {% endblock %}
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+  {% block javascript %}
+  {% endblock %}
+
+  </body>
+</html>
