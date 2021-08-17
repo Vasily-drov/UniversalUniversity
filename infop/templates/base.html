@@ -33,15 +33,15 @@
 
   <ul id="slide-out" class="sidenav">
     <li><div class="user-view">
-      <a href="#name"><span class="black-text name">{{ nav_profile.user.first_name }} {{ nav_profile.user.last_name }}</span></a>
-      <a href="#email"><span class="black-text email">{{ nav_profile.user.email }}</span></a>
+      <h5>{{ nav_profile.user.first_name }} </h5>
     </div></li>
+    <li><div class="divider"></div></li>
     <li><a href="{% url 'myfans' %}"><i class="material-icons">star</i>{{ fans }}     Purchases</a></li>
     <li><a href="{% url 'myfollows' %}"><i class="material-icons">people</i>{{ follows }}     Subscriptions</a></li>
-    <!-- <li><a href="{% url 'bookmarks' %}"><i class="material-icons">call_missed_outgoing</i>Statistic</a></li> -->
+    <li><a href="{% url 'statistic' %}"><i class="material-icons">call_missed_outgoing</i>Statistic</a></li>
 
     <li><div class="divider"></div></li>
-    <li><a class="subheader">Payments</a></li>
+    <!-- <li><a class="subheader">Payments</a></li> -->
     <li><a href="#!"><i class="material-icons">credit_card</i>Your payment methods</a></li>
     <li><a href="#!"><i class="material-icons">account_balance</i>Your payout methods</a></li>
     <li><div class="divider"></div></li>

@@ -112,7 +112,7 @@ def UserProfile(request, username):
 		'tiers': tiers,
 		'form': form,
 		'favorite_list': favorite_list,
-		'person_in_list': person_in_list,
+		#'person_in_list': person_in_list,
 		'posts': posts_data,
 		'page_type': page_type,
 		'income': income,

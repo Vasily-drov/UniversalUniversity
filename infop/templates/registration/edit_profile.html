@@ -5,12 +5,20 @@
 {% block content %}
 
 <div class="row center-align">
-  <div class="col s6 offset-s3">
+  <div class="col s10 offset-s1">
     <div class="card">
 
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
     <h3 class="title is-3">Edit Profile</h3>
+
+      <div class="col s5">
+        {% if profile.picture %}
+        <img src="{{ profile.picture.url }}" class="circle responsive-img">
+        {% else %}
+        <img src="{% static 'img/no_avatar.jpg' %}" class="responsive-img">
+        {% endif %}
+      </div>
 
           <div class="file-field input-field">
             <div class="btn amber">
@@ -22,40 +30,34 @@
             </div>
           </div>
 
-          <div class="file-field input-field">
-            <div class="btn amber">
-              <span>Banner</span>
-              {{ form.banner }}
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-          </div>
-
           <div class="input-field col s12">
             {{ form.first_name }}
-            <label for="first_name">First name</label>
+            <label for="first_name">Nick name</label>
           </div>
 
-          <div class="input-field col s12">
-            {{ form.last_name }}
-            <label for="last_name">Last name</label>
-          </div>
 
-          <div class="input-field col s12">
-            {{ form.location }}
-            <label for="location">Location</label>
-          </div>
-
-          <div class="input-field col s12">
-            {{ form.url }}
-            <label for="url">URL</label>
-          </div>
 
           <div class="input-field col s12">
             {{ form.profile_info }}
             <label for="profile_info">BIO</label>
           </div>
+
+
+            <!--
+            <div class="input-field col s12">
+              {{ form.last_name }}
+              <label for="last_name">Last name</label>
+            </div> -->
+              <!--
+            <div class="input-field col s12">
+              {{ form.location }}
+              <label for="location">Location</label>
+            </div>
+
+            <div class="input-field col s12">
+              {{ form.url }}
+              <label for="url">URL</label>
+            </div>   -->
 
       <div class="row">
         <div class="col s12">
