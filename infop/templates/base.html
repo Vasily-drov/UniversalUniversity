@@ -18,10 +18,9 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper">
       <!-- <a href="{% url 'index' %}" class="brand-logo"><img src="{% static 'img/logo.svg' %}" alt="sdf"></img>INFO G</a> -->
-
+      <img class="responsive-img"class="fixed-mid" src="{% static 'img/logo_nav.png' %}">
       <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-down">
-
         <li><a href="{% url 'show-notifications' %}"><i class="material-icons left">favorite_border</i><span class="new badge amber">{{ count_notifications }}</span></a></li>
         <li><a href="{% url 'newpost' %}"><i class="material-icons">add_box</i></a></li>
         <li><a href="{% url 'profile' nav_profile.user.username %}"><i class="material-icons">person_pin</i></a></li>
@@ -37,7 +36,7 @@
     </div></li>
     <li><div class="divider"></div></li>
     <li><a href="{% url 'myfans' %}"><i class="material-icons">star</i>{{ fans }}     Purchases</a></li>
-    <li><a href="{% url 'myfollows' %}"><i class="material-icons">people</i>{{ follows }}     Subscriptions</a></li>
+    <li><a href="{% url 'myfollowers' %}"><i class="material-icons">people</i>{{ follows }}     Subscriptions</a></li>
     <li><a href="{% url 'statistic' %}"><i class="material-icons">call_missed_outgoing</i>Statistic</a></li>
 
     <li><div class="divider"></div></li>

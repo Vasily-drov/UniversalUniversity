@@ -28,7 +28,6 @@ class SignupForm(forms.ModelForm):
 	confirm_password = forms.CharField(widget=forms.PasswordInput(), required=True, label="Confirm your password.")
 
 	class Meta:
-
 		model = User
 		fields = ('username', 'email', 'password')
 
@@ -72,17 +71,13 @@ class ChangePasswordForm(forms.ModelForm):
 		return self.cleaned_data
 
 class EditProfileForm(forms.ModelForm):
-	first_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
-	last_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
+	nickname = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
 	picture = forms.ImageField(required=False)
-
-	location = forms.CharField(widget=forms.TextInput(), max_length=25, required=False)
-	url = forms.URLField(widget=forms.TextInput(), max_length=60, required=False)
 	profile_info = forms.CharField(widget=forms.TextInput(), max_length=260, required=False)
 
 	class Meta:
 		model = Profile
-		fields = ('picture', 'banner', 'first_name', 'last_name', 'location', 'url', 'profile_info')
+		fields = ('picture', 'nickname', 'profile_info')
 
 class NewListForm(forms.ModelForm):
 	title = forms.CharField(widget=forms.TextInput(), max_length=150, required=True)

@@ -1,9 +1,10 @@
 from django.urls import path
-from tier.views import NewTier, FansList, FollowingList, CheckExpiration
+from tier.views import FansList, FollowingList
+# NewTier, CheckExpiration
 
 urlpatterns = [
-    path('newtier/', NewTier, name='newtier'),
+    #path('newtier/', NewTier, name='newtier'),
     path('myfans/', FansList, name='myfans'),
-    path('myfollows/', FollowingList, name='myfollows'),
-    path('checkexp/', CheckExpiration, name='check-expiration'),
+    path('myfollowers/', FollowingList, name='myfollowers'),
+    #path('checkexp/', CheckExpiration, name='check-expiration'),
 ]

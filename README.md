@@ -1,2 +1,0 @@
-# infop
-Web Education Platform

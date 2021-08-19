@@ -1,6 +1,5 @@
 (function($){
   $(function(){
-
     $('.sidenav').sidenav();
     $('.tabs').tabs();
     $('.materialboxed').materialbox();
@@ -8,7 +7,6 @@
     $('.slider').slider();
     $('.tooltipped').tooltip();
     $('.modal').modal();
-
     $("addtolistform").submit(function(){
       $.ajax({
         url: '/profile/addtolist',

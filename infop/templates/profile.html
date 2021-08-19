@@ -7,95 +7,89 @@
 <div class="col s12 m12">
   <div class="card">
     <div class="card-action">
-      <div class="row">
-
-        <div class="col s2">
-          {% if profile.picture %}
-          <img src="{{ profile.picture.url }}" class="circle responsive-img">
-          {% else %}
-          <img src="{% static 'img/no_avatar.jpg' %}" class="circle responsive-img">
-          {% endif %}
-        </div>
-
-        <div class="right-align">
-
-          {% if user.is_authenticated and user == profile.user %}
-          <a href="{% url 'edit-profile' %}" class="btn"><i class="material-icons">edit</i>Edit profile</a>
-          {% endif %}
-
-          {% if user.is_authenticated and user != profile.user %}
-          {% if person_in_list == True %}
-          <a href="{% url 'remove-from-list' profile.user.username %}" class="btn red"><i class="material-icons">favorite</i>Remove</a>
-          {% else %}
-          <a href="#modal1" class="modal-trigger"><i class="material-icons">favorite</i>Favorite</a>
-          {% endif %}
-          {% endif %}
-
-        </div>
-
-        <!-- Modal Structure For the list select
-        <div id="modal1" class="modal">
-          <div class="modal-content">
-            <h4>Save to list</h4>
-            <form role="form" method="POST" action="{% url 'add-to-list' %}" id="addtolistform">
-              {% csrf_token %}
-              <div class="input-field col s12">
-                <select name="list_item">
-                  <option value="" disabled selected>Choose from your custom lists</option>
-                  {% for favorite in favorite_list %}
-                  <option value="{{ favorite.id }}">{{ favorite.title }}</option>
-                  {% endfor %}
-                </select>
-                <label>Favorite People List</label>
-              </div>
-              <input type="hidden" name="to" value="{{ profile.user.username }}">
-              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                <i class="material-icons right">send</i>
-              </button>
-            </form>
+        <div class="row">
+          <div class="col s5">
+            {% if profile.picture %}
+            <img src="{{ profile.picture.url }}" class="circle responsive-img">
+            {% else %}
+            <img src="{% static 'img/no_avatar.jpg' %}" class="circle responsive-img">
+            {% endif %}
           </div>
-          <div class="modal-footer">
-            <a href="#modal2" class="waves-effect waves-green btn-flat modal-trigger">New List</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+
+          <div class="right-align">
+            {% if user.is_authenticated and user == profile.user %}
+            <a href="{% url 'edit-profile' %}" class="btn amber"><i class="material-icons">edit</i>Edit profile</a>
+            {% endif %}
+
+            {% if user.is_authenticated and user != profile.user %}
+            {% if person_in_list == True %}
+            <a href="{% url 'remove-from-list' profile.user.username %}" class="btn amber"><i class="material-icons">favorite</i>Remove</a>
+            {% else %}
+            <a href="#modal1" class="modal-trigger"><i class="material-icons">favorite</i>Favorite</a>
+            {% endif %}
+            {% endif %}
           </div>
-        </div>
-        END Modal Structure For the list select -->
 
-        {% include "new_list_modal.html" %}
+          <div class="col s7">
+            <h3><b>{{ profile.user.first_name }} {{ user.last_name }} {{ user.nickname }}</b></h3>
+            <h5>@{{ profile.user.username }}</h5>
+            {{ profile.profile_info }}
+          </div>
 
-        <div class="col s10">
-          <h3><b>{{ profile.user.first_name }} {{ profile.user.last_name }}</b></h3>
-          <h5>@{{ profile.user.username }}</h5>
-          {{ profile.profile_info }}
-        </div>
-        <div class="col s5">
+          <!-- Modal Structure For the list select
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h4>Save to list</h4>
+              <form role="form" method="POST" action="{% url 'add-to-list' %}" id="addtolistform">
+                {% csrf_token %}
+                <div class="input-field col s12">
+                  <select name="list_item">
+                    <option value="" disabled selected>Choose from your custom lists</option>
+                    {% for favorite in favorite_list %}
+                    <option value="{{ favorite.id }}">{{ favorite.title }}</option>
+                    {% endfor %}
+                  </select>
+                  <label>Favorite People List</label>
+                </div>
+                <input type="hidden" name="to" value="{{ profile.user.username }}">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#modal2" class="waves-effect waves-green btn-flat modal-trigger">New List</a>
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+          </div>
+          END Modal Structure For the list select -->
+
+          {% include "new_list_modal.html" %}
           <div class="row">
-            <div class="col s12 m2">
-              <div class="icon-block">
-                <h2 class="center light-blue-text"><i class="material-icons">wallpaper</i></h2>
-                <!-- <h5 class="center">Posts</h5>
-                <h4 class="center">{{ posts_count }}</h4>
-                <p></p> -->
+              <div class="col s2 offset-s6">
+                <div class="icon-block">
+                  <h3 class="center"><i class="material-icons">wallpaper</i></h3>
+                  <p class="center">Posts</p>
+                  <h5 class="center">{{ posts_count }}</h5>
+                </div>
               </div>
-            </div>
-            <div class="col s12 m2">
-              <div class="icon-block">
-                <h2 class="center light-blue-text"><i class="material-icons">attach_money</i></h2>
-                <!-- <h5 class="center">Per month</h5>
-                <h4 class="center">{% if income == None %}0{% else %}{{ income.tier__price__sum }}{% endif %}</h4>
-                <p></p> -->
+
+              <div class="col s2">
+                <div class="icon-block">
+                  <h3 class="center"><i class="material-icons">attach_money</i></h3>
+                  <p class="center">Per month</p>
+                  <!-- <h5 class="center">{% if income == None %}0{% else %}{{ income.tier__price__sum }}{% endif %}</h5> -->
+                </div>
               </div>
-            </div>
-            <div class="col s12 m2">
-              <div class="icon-block">
-                <h2 class="center light-blue-text"><i class="material-icons">people</i></h2>
-                <!-- <h5 class="center">Fans</h5>
-                <h4 class="center">{{ fans_count }}</h4>
-                <p></p>  -->
+
+              <div class="col s2">
+                <div class="icon-block">
+                  <h3 class="center"><i class="material-icons">people  </i></h3>
+                  <p class="center">Fans</p>
+                  <h5 class="center">{{ fans_count }}</h5>
+                </div>
               </div>
-            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -106,8 +100,8 @@
         {% for tier in tiers %}
         <div class="col s12 m4">
           <div class="card-panel center-align">
-            <h3>${{ tier.price }}</h3>
-            <span>{{ tier.description }}</span>
+            <!-- <h3>${{ tier.price }}</h3>
+            <span>{{ tier.description }}</span>  -->
             <br><br>
             <a href="{% url 'subscribe' profile.user.username tier.id %}" class="waves-effect waves-light btn amber"><i class="material-icons right">star</i>Subscribe</a>
           </div>
@@ -116,7 +110,6 @@
       </div>
     </div>
     {% endif %}
-
 
     <div class="card-tabs">
       <ul class="tabs tabs-fixed-width">

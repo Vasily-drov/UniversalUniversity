@@ -7,9 +7,8 @@ from django.db.models.signals import post_save, post_delete
 # Create your models here.
 class Tier(models.Model):
     number = models.PositiveSmallIntegerField(default=0)
-    description = models.TextField(max_length=800, verbose_name='Description')
-    price = models.IntegerField(verbose_name='Price')
-    can_message = models.BooleanField(default=False)
+    #description = models.TextField(max_length=800, verbose_name='Description')
+    #can_message = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tier_user')
 
     def __str__(self):

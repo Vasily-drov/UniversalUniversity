@@ -16,7 +16,7 @@ def user_directory_path(instance, filename):
 class PostFileContent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='content_owner')
     file = models.FileField(upload_to=user_directory_path)
-    tier = models.ForeignKey(Tier, on_delete=models.CASCADE, related_name='tier_file')
+
     posted = models.DateTimeField(auto_now_add=True)
 
 class Post(models.Model):
@@ -25,7 +25,7 @@ class Post(models.Model):
     title = models.CharField(max_length=150)
     caption = models.TextField(max_length=1500, verbose_name='Caption')
     posted = models.DateTimeField(auto_now_add=True)
-    tier = models.ForeignKey(Tier, on_delete=models.CASCADE, related_name='tiers')
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     likes_count = models.IntegerField(default=0)
     comments_count = models.IntegerField(default=0)

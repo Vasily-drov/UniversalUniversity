@@ -1,5 +1,5 @@
 """
-WSGI config for fans_clone project.
+WSGI config for infop project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dj_infop.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'infop.settings')
 
 application = get_wsgi_application()

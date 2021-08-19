@@ -1,47 +1,42 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from authy.forms import SignupForm, ChangePasswordForm, EditProfileForm
 from django.contrib.auth.models import User
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from django.db import transaction
 from django.db.models import Sum
+from django.template import loader
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.core.paginator import Paginator
+from django.urls import resolve
 
 from authy.models import Profile, PeopleList
 from tier.models import Tier, Subscription
 from post.models import PostFileContent, Post
 
+from authy.forms import SignupForm, ChangePasswordForm, EditProfileForm
 from authy.forms import NewListForm
-
-from django.db import transaction
-from django.template import loader
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-
-from django.core.paginator import Paginator
-
-from django.urls import resolve
 
 # Create your views here.
 
 def SideNavInfo(request):
-	user = request.user
-	nav_profile = None
-	fans = None
-	follows = None
+        user = request.user
+        nav_profile = None
+        fans = None
+        follows = None
 
-	if user.is_authenticated:
-		nav_profile = Profile.objects.get(user=user)
-		fans = Subscription.objects.filter(subscribed=user).count()
-		follows = Subscription.objects.filter(subscriber=user).count()
+        if user.is_authenticated:
+                nav_profile = Profile.objects.get(user=user)
+                fans = Subscription.objects.filter(subscribed=user).count()
+                follows = Subscription.objects.filter(subscriber=user).count()
 	
-	return {'nav_profile': nav_profile, 'fans': fans, 'follows': follows}
+        return {'nav_profile': nav_profile, 'fans': fans, 'follows': follows}
 
 
 def UserProfile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)
 	url = request.resolver_match.url_name
-
 	tiers = None
 	no_a_subscriber = None
 	posts = None
@@ -84,7 +79,7 @@ def UserProfile(request, username):
 		posts_data = paginator.get_page(page_number)
 	
 	#Profile stats
-	income = Subscription.objects.filter(subscribed=user, expired=False).aggregate(Sum('tier__price'))
+	#income = Subscription.objects.filter(subscribed=user, expired=False).aggregate(Sum('tier__price'))
 	fans_count = Subscription.objects.filter(subscribed=user, expired=False).count()
 	posts_count = Post.objects.filter(user=user).count()
 
@@ -115,7 +110,7 @@ def UserProfile(request, username):
 		#'person_in_list': person_in_list,
 		'posts': posts_data,
 		'page_type': page_type,
-		'income': income,
+		#'income': income,
 		'fans_count': fans_count,
 		'posts_count': posts_count,
 		'no_a_subscriber': no_a_subscriber,
@@ -178,11 +173,12 @@ def EditProfile(request):
 		form = EditProfileForm(request.POST, request.FILES, instance=profile)
 		if form.is_valid():
 			profile.picture = form.cleaned_data.get('picture')
-			profile.banner = form.cleaned_data.get('banner')
-			user_basic_info.first_name = form.cleaned_data.get('first_name')
-			user_basic_info.last_name = form.cleaned_data.get('last_name')
+
+			profile.nickname = form.cleaned_data.get('nickname')
+
+			profile.name = form.cleaned_data.get('name')
 			profile.location = form.cleaned_data.get('location')
-			profile.url = form.cleaned_data.get('url')
+			#profile.url = form.cleaned_data.get('url')
 			profile.profile_info = form.cleaned_data.get('profile_info')
 			profile.save()
 			user_basic_info.save()

@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
+  <title>Info_store</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -16,12 +16,12 @@
 
   <div class="row center-align">
     <div class="col s6 offset-s3">
-      <h4>Fans</h4>
+      <h2>Info_store <img class="responsive-img" src="{% static 'img/logo_s.png' %}"></h2>
       <div class="card">
 
     <form method="post" action="" role="form">
     {% csrf_token %}
-    <h3 class="title is-3">Create an account</h3>
+    <h4 class="title is-3">Create an account</h4>
 
         <div class="input-field col s12">
           {{ form.username }}
@@ -51,7 +51,7 @@
 
       <div class="field">
       <p class="control">
-        <button type="submit" name="action" class="btn waves-effect waves-light">
+        <button type="submit" name="action" class="btn amber">
           Create
         </button>
       </p>
