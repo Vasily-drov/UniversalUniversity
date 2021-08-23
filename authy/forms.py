@@ -71,8 +71,8 @@ class ChangePasswordForm(forms.ModelForm):
 		return self.cleaned_data
 
 class EditProfileForm(forms.ModelForm):
-	nickname = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
 	picture = forms.ImageField(required=False)
+	nickname = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
 	profile_info = forms.CharField(widget=forms.TextInput(), max_length=260, required=False)
 
 	class Meta:

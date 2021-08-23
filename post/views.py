@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from post.forms import NewPostForm
 from comment.forms import CommentForm
@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from post.models import Post, PostFileContent, Stream, Likes, Bookmark
-from tier.models import Tier, Subscription
+from tier.models import Subscription #Tier,
 from comment.models import Comment
 
 # Create your views here.
@@ -61,10 +61,10 @@ def PostDetails(request, post_id):
     #To validate that the user can see the post
     if user != post.user:
         subscriber = Subscription.objects.get(subscriber=request.user, subscribed=post.user)
-        if (subscriber.tier.number >= post.tier.number):
+        if (True): #subscriber.tier.number >= post.tier.number
             visible = True
         else:
-            visible = False
+            visible = True #False
     else:
         visible = True
     
@@ -91,28 +91,27 @@ def NewPost(request):
             files = request.FILES.getlist('content')
             title = form.cleaned_data.get('title')
             caption = form.cleaned_data.get('caption')
-            tier = form.cleaned_data.get('tier')
-            tiers = get_object_or_404(Tier, id=tier.id)
+            #tier = form.cleaned_data.get('tier')
+            #tiers = get_object_or_404(Tier, id=tier.id)
 
             for file in files:
-                file_instance = PostFileContent(file=file, user=user, tier=tiers)
+                file_instance = PostFileContent(file=file, user=user) #, tier=tiers
                 file_instance.save()
                 files_objs.append(file_instance)
             
-            p, created = Post.objects.get_or_create(title=title, caption=caption, user=user, tier=tiers)
+            p, created = Post.objects.get_or_create(title=title, caption=caption, user=user) #, tier=tiers
             p.content.set(files_objs)
             p.save()
             return redirect('index')
     else:
         form = NewPostForm()
-        form.fields['tier'].queryset = Tier.objects.filter(user=user)
+        #form.fields['tier'].queryset = Tier.objects.filter(user=user)
     
     context = {
         'form': form,
     }
 
     return render(request, 'newpost.html', context)
-
 
 
 @login_required
@@ -127,21 +126,21 @@ def Statistic(request):
             files = request.FILES.getlist('content')
             title = form.cleaned_data.get('title')
             caption = form.cleaned_data.get('caption')
-            tier = form.cleaned_data.get('tier')
-            tiers = get_object_or_404(Tier, id=tier.id)
+            #tier = form.cleaned_data.get('tier')
+            #tiers = get_object_or_404(Tier, id=tier.id)
 
             for file in files:
-                file_instance = PostFileContent(file=file, user=user, tier=tiers)
+                file_instance = PostFileContent(file=file, user=user) #, tier=tiers
                 file_instance.save()
                 files_objs.append(file_instance)
 
-            p, created = Post.objects.get_or_create(title=title, caption=caption, user=user, tier=tiers)
+            p, created = Post.objects.get_or_create(title=title, caption=caption, user=user) #, tier=tiers
             p.content.set(files_objs)
             p.save()
             return redirect('index')
     else:
         form = NewPostForm()
-        form.fields['tier'].queryset = Tier.objects.filter(user=user)
+        #form.fields['tier'].queryset = Tier.objects.filter(user=user)
 
     context = {
         'form': form,

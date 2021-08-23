@@ -14,21 +14,19 @@
 <body>
 
   <div class="row center-align">
-    <div class="col s4 offset-s4">
-      <h3>Jupiter Temple<img class="responsive-img materialboxed" width="100%" src="{% static 'img/logo.png' %}"></h3>
+      <div class="col s4 offset-s4">
+          <h4>Info_store <img class="responsive-img" src="{% static 'img/logo_s.png' %}"></h4>
           <form method="post" action="" role="form">
               {% csrf_token %}
-
-           <div class="input-field col s12">
-            {{ form.username }}
-            <label for="username">Username</label>
-          </div>
-   
-          <div class="input-field col s12">
-            {{ form.password }}
-            <label for="password">Password</label>
-            <h5><div class="section"></h5>
-          </div>
+              <div class="input-field col s12">
+                  {{ form.username }}
+                  <label for="username">Username</label>
+              </div>
+              <div class="input-field col s12">
+                  {{ form.password }}
+                  <label for="password">Password</label>
+                  <h5><div class="section"></div></h5>
+              </div>
 
       {% if form.errors %}
       <div class="row">
@@ -40,19 +38,15 @@
 
       <div class="field">
       <p class="control">
-        <button type="submit" value="login" class="btn amber waves-effect waves-orange btn-large col s12">
-          Login
-        </button>
-      </p>
+          <button type="submit" value="login" class="btn amber waves-effect waves-orange btn-large col s12">Login</button></p>
     </div>
 
     <input type="hidden" name="next" value="{{ next }}">
 
 
-
-    <a href="{% url 'signup' %}" class="btn amber waves-effect waves-orange col s12">Sign Up</a>
-  </form>
-
+              <a href="{% url 'signup' %}" class="btn amber waves-effect waves-orange col s12">Sign Up</a>
+        </form>
+    </div>
   </div>
 </div>
   <!--  Scripts-->

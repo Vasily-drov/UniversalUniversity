@@ -6,9 +6,10 @@ import uuid
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from tier.models import Tier, Subscription
+from tier.models import Subscription #Tier,
 from notifications.models import Notification
 # Create your models here.
+
 def user_directory_path(instance, filename):
     #This file will be uploaded to MEDIA_ROOT /the user(id)/thefile
     return 'user_{0}/{1}'.format(instance.user.id, filename)
@@ -16,7 +17,6 @@ def user_directory_path(instance, filename):
 class PostFileContent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='content_owner')
     file = models.FileField(upload_to=user_directory_path)
-
     posted = models.DateTimeField(auto_now_add=True)
 
 class Post(models.Model):
@@ -25,7 +25,6 @@ class Post(models.Model):
     title = models.CharField(max_length=150)
     caption = models.TextField(max_length=1500, verbose_name='Caption')
     posted = models.DateTimeField(auto_now_add=True)
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     likes_count = models.IntegerField(default=0)
     comments_count = models.IntegerField(default=0)
@@ -49,7 +48,7 @@ class Stream(models.Model):
         if created:
             subscribers = Subscription.objects.all().filter(subscribed=user)
             for subscriber in subscribers:
-                if(subscriber.tier.number >= post.tier.number):
+                if(True): #subscriber.tier.number >= post.tier.number
                     stream = Stream(post=post, user=subscriber.subscriber, date=post.posted, subscribed=user, visible=True)
                     stream.save()
                 else:

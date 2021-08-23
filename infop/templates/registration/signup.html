@@ -16,12 +16,11 @@
 
   <div class="row center-align">
     <div class="col s4 offset-s4">
-      <h3><img class="responsive-img materialboxed" width="100%" src="{% static 'img/logo.png' %}"></h3>
-      <div>
+      <h3><img class="responsive-img materialboxed" width="100%" src="{% static 'img/logo_s.png' %}"></h3><div>
 
     <form method="post" action="" role="form">
     {% csrf_token %}
-    <h4 class="title is-3">Create new account</h4>
+      <h4 class="title is-3">Create new account</h4>
 
         <div class="input-field col s12">
           {{ form.username }}

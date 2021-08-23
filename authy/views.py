@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 from django.urls import resolve
 
 from authy.models import Profile, PeopleList
-from tier.models import Tier, Subscription
+from tier.models import Subscription #Tier,
 from post.models import PostFileContent, Post
 
 from authy.forms import SignupForm, ChangePasswordForm, EditProfileForm
@@ -22,27 +22,17 @@ from authy.forms import NewListForm
 def SideNavInfo(request):
         user = request.user
         nav_profile = None
-        fans = None
-        follows = None
+        #fans = None
+        #follows = None
 
         if user.is_authenticated:
                 nav_profile = Profile.objects.get(user=user)
-                fans = Subscription.objects.filter(subscribed=user).count()
-                follows = Subscription.objects.filter(subscriber=user).count()
+                #fans = Subscription.objects.filter(subscribed=user).count()
+                #follows = Subscription.objects.filter(subscriber=user).count()
 	
-        return {'nav_profile': nav_profile, 'fans': fans, 'follows': follows}
+        return {'nav_profile': nav_profile} #'fans': fans, 'follows': follows
 
-
-def UserProfile(request, username):
-	user = get_object_or_404(User, username=username)
-	profile = Profile.objects.get(user=user)
-	url = request.resolver_match.url_name
-	tiers = None
-	no_a_subscriber = None
-	posts = None
-	page_type = None
-	posts_data = None
-
+''' Removed from user profile
 	if request.user != user:
 		try:
 			#Check if the user is subscribed to the profile
@@ -52,25 +42,38 @@ def UserProfile(request, username):
 			if url == 'profilephotos':
 				posts = PostFileContent.objects.filter(user=user, tier__number__lte=subscriber_tier.tier.number).order_by('-posted').exclude(file__endswith='mp4')
 				page_type = 1
-			elif url == 'profilevideos':
-				posts = PostFileContent.objects.filter(user=user, tier__number__lte=subscriber_tier.tier.number).order_by('-posted').exclude(file__endswith='jpg')
-				page_type = 2
+			#elif url == 'profilevideos':
+				#posts = PostFileContent.objects.filter(user=user, tier__number__lte=subscriber_tier.tier.number).order_by('-posted').exclude(file__endswith='jpg')
+				#page_type = 2
 			else:
 				posts = Post.objects.filter(user=user, tier__number__lte=subscriber_tier.tier.number).order_by('-posted')
 				page_type = 3
 		except Exception:
-			tiers = Tier.objects.filter(user=user)
+			#tiers = Tier.objects.filter(user=user)
 			no_a_subscriber = False
 	else:
-		if url == 'profilephotos':
-			posts = PostFileContent.objects.filter(user=user).order_by('-posted').exclude(file__endswith='mp4')
-			page_type = 1
-		elif url == 'profilevideos':
-			posts = PostFileContent.objects.filter(user=user).order_by('-posted').exclude(file__endswith='jpg')
-			page_type = 2
-		else:
-			posts = Post.objects.filter(user=user).order_by('-posted')
-			page_type = 3
+'''
+
+def UserProfile(request, username):
+	user = get_object_or_404(User, username=username)
+	profile = Profile.objects.get(user=user)
+	url = request.resolver_match.url_name
+	#tiers = None
+	no_a_subscriber = None
+	posts = None
+	page_type = None
+	posts_data = None
+
+
+	if url == 'profilephotos':
+		posts = PostFileContent.objects.filter(user=user).order_by('-posted').exclude(file__endswith='mp4')
+		page_type = 1
+	elif url == 'profilevideos':
+		posts = PostFileContent.objects.filter(user=user).order_by('-posted').exclude(file__endswith='jpg')
+		page_type = 2
+	else:
+		posts = Post.objects.filter(user=user).order_by('-posted')
+		page_type = 3
 	
 	#Pagination
 	if posts:
@@ -80,9 +83,8 @@ def UserProfile(request, username):
 	
 	#Profile stats
 	#income = Subscription.objects.filter(subscribed=user, expired=False).aggregate(Sum('tier__price'))
-	fans_count = Subscription.objects.filter(subscribed=user, expired=False).count()
+	fans_count = Subscription.objects.filter(subscribed=user).count() #, expired=False
 	posts_count = Post.objects.filter(user=user).count()
-
 
 	#Favorite people lists select
 	favorite_list = PeopleList.objects.filter(user=request.user)
@@ -104,19 +106,17 @@ def UserProfile(request, username):
 
 	context = {
 		'profile':profile,
-		'tiers': tiers,
+		#'tiers': tiers,
 		'form': form,
 		'favorite_list': favorite_list,
-		#'person_in_list': person_in_list,
+		'person_in_list': person_in_list,
 		'posts': posts_data,
 		'page_type': page_type,
 		#'income': income,
 		'fans_count': fans_count,
 		'posts_count': posts_count,
 		'no_a_subscriber': no_a_subscriber,
-
 	}
-
 	return HttpResponse(template.render(context, request))
 
 
@@ -150,8 +150,8 @@ def PasswordChange(request):
 			user.save()
 			update_session_auth_hash(request, user)
 			return redirect('change_password_done')
-	else:
-		form = ChangePasswordForm(instance=user)
+
+	else: form = ChangePasswordForm(instance=user)
 
 	context = {
 		'form':form,
@@ -173,18 +173,16 @@ def EditProfile(request):
 		form = EditProfileForm(request.POST, request.FILES, instance=profile)
 		if form.is_valid():
 			profile.picture = form.cleaned_data.get('picture')
-
 			profile.nickname = form.cleaned_data.get('nickname')
-
 			profile.name = form.cleaned_data.get('name')
-			profile.location = form.cleaned_data.get('location')
+			#profile.location = form.cleaned_data.get('location')
 			#profile.url = form.cleaned_data.get('url')
 			profile.profile_info = form.cleaned_data.get('profile_info')
 			profile.save()
 			user_basic_info.save()
 			return redirect('index')
-	else:
-		form = EditProfileForm(instance=profile)
+
+	else:form = EditProfileForm(instance=profile)
 
 	context = {
 		'form':form,
@@ -224,13 +222,11 @@ def ShowList(request):
 			title = form.cleaned_data.get('title')
 			PeopleList.objects.create(title=title, user=request.user)
 			return HttpResponseRedirect(reverse('profile', args=[request.user.username]))
-	else:
-		form = NewListForm()
+	else: form = NewListForm()
 
 	context = {
 		'user_lists': user_lists,
-		'form': form,
-	}
+		'form': form }
 
 	return render(request, 'user_lists.html', context)
 

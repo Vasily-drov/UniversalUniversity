@@ -1,5 +1,5 @@
 from django import forms
-from tier.models import Tier
+#from tier.models import Tier
 '''
 class NewTierForm(forms.ModelForm):
     # can_message = forms.BooleanField(required=False)

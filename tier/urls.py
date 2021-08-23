@@ -4,7 +4,7 @@ from tier.views import FansList, FollowingList
 
 urlpatterns = [
     #path('newtier/', NewTier, name='newtier'),
-    path('myfans/', FansList, name='myfans'),
-    path('myfollowers/', FollowingList, name='myfollowers'),
+    path('fans_list/', FansList, name='fans_list'),
+    path('following_list/', FollowingList, name='following_list'),
     #path('checkexp/', CheckExpiration, name='check-expiration'),
 ]

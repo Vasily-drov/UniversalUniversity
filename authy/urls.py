@@ -17,8 +17,8 @@ urlpatterns = [
    	path('passwordreset/complete/', authViews.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
 
-	path('profile/addtolist', addToList, name='add-to-list'),
 
+	path('profile/addtolist', addToList, name='add-to-list'),
 	#path('mylists', ShowList, name='show-my-lists'),
 	#path('mylists/<list_id>', listpeople, name='list-people'),
 	#path('mylists/<list_id>/delete', listpeopledelete, name='list-people-delete'),
