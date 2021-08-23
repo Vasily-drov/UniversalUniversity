@@ -5,12 +5,12 @@
 {% block content %}
 
 <div class="row center-align">
-  <div class="col s10 offset-s1">
-    <div class="card">
+  <div class="col s12 m8 offset-m2">
 
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
-    <h3 class="title is-3">Edit Profile</h3>
+    <h3 class="title is-3">Edit profile</h3>
+      <h5><div class="section"></h5>
 
       <div class="file-field input-field">
         <div class="btn amber">
@@ -23,12 +23,12 @@
         </div>
       </div>
 
-      <div class="input-field col s12">
+      <div class="input-field col s12 m6 offset-m3">
         {{ form.nickname }}
         <label for="nickname">Nick name</label>
       </div>
 
-      <div class="input-field col s12">
+      <div class="input-field col s12 m6 offset-m3">
         {{ form.profile_info }}
         <label for="profile_info">BIO</label>
       </div>
@@ -41,7 +41,7 @@
 
       <div class="field">
       <p class="control">
-        <button type="submit" value="login" class="btn amber">
+        <button type="submit" value="login" class="btn amber waves-effect waves-orange btn-large">
           Update
         </button>
       </p>
