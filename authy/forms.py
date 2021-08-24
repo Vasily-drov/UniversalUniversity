@@ -79,6 +79,7 @@ class EditProfileForm(forms.ModelForm):
 		model = Profile
 		fields = ('picture', 'nickname', 'profile_info')
 
+
 class NewListForm(forms.ModelForm):
 	title = forms.CharField(widget=forms.TextInput(), max_length=150, required=True)
 

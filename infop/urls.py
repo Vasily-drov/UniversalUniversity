@@ -34,7 +34,7 @@ urlpatterns = [
     path('<username>/', UserProfile, name='profile'),
     path('<username>/photos', UserProfile, name='profilephotos'),
     path('<username>/videos', UserProfile, name='profilevideos'),
-    path('<username>/<tier_id>/subscribe', Subscribe, name='subscribe'),
+    path('<username>/subscribe', Subscribe, name='subscribe'),
     path('<username>/remove/fromlist', RemoveFromList, name='remove-from-list'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

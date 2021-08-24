@@ -22,10 +22,12 @@
             {% endif %}
 
             {% if user.is_authenticated and user != profile.user %}
-             {% if person_in_list == True %}
-            <a href="{% url 'remove-from-list' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Remove</a>
+            {% if person_in_list == True %}
+            <!-- <a href="{% url 'remove-from-list' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Remove</a> -->
             {% else %}
-            <a href="#modal1" class="modal-trigger"><i class="material-icons">favorite</i>Favorite</a>
+            <a href="{% url 'subscribe' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Subscribe</a>
+            <a href="{% url 'subscribe' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Unsubscribe</a>
+            <!-- <a href="#modal1" class="modal-trigger"><i class="material-icons">favorite</i>Favorite</a> -->
             {% endif %}
             {% endif %}
           </div>
@@ -65,7 +67,7 @@
         </div>
     </div>
   </div>
-  <!--
+
     {% if user.is_authenticated and user != profile.user %}
     <div class="card-action">
       <div class="row">
@@ -75,13 +77,13 @@
              <h3>${{ tier.price }}</h3>
             # <span>{{ tier.description }}</span>
             <br><br>
-            <a href="{% url 'subscribe' profile.user.username tier.id %}" class="waves-effect waves-light btn amber"><i class="material-icons right">star</i>Subscribe</a>
+            <a href="{% url 'subscribe' profile.user.username %}" class="waves-effect waves-light btn amber"><i class="material-icons right">star</i>Subscribe</a>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
-    {% endif %} -->
+    {% endif %}
 
     <div class="card-tabs">
       <ul class="tabs tabs-fixed-width">

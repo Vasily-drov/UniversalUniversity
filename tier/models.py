@@ -26,7 +26,7 @@ class Subscription(models.Model):
     subscribed = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscribed')
     #tier = models.ForeignKey(Tier, on_delete=models.CASCADE, related_name='tier')
     date = models.DateTimeField(auto_now_add=True)
-    expired = models.BooleanField(default=False)
+    expired = models.BooleanField(default=True)
 
     def __str__(self):
         return self.subscriber.username + '==' + self.subscribed.username # + '== Tier: ' + str(self.tier.number)

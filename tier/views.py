@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 # Create your views here.
 
 
-def Subscribe(request, username, tier_id):
+def Subscribe(request, username): #, tier_id
     user = request.user
     subscribing = get_object_or_404(User, username=username)
     #tier = Tier.objects.get(id=tier_id)

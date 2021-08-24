@@ -4,10 +4,11 @@
 {% block content %}
 <div class="divider"></div>
 <div class="section">
-  <h5>People subscribed to me:</h5>
+  <h5>My Purchases: </h5>
 </div>
 <div class="divider"></div>
 
+<!--
 {% for person in my_fans %}
     <div class="col s12 m4">
         <div class="card">
@@ -24,11 +25,11 @@
                         <span>@<b>{{ person.subscriber.username }}</b></span>
                         <br>
                         <span>N:<b>{{ person.subscriber.nickname }}</b></span>
-                        <!-- <p>{{ person.subscriber.profile.profile_info }}</p> -->
+                         <p>{{ person.subscriber.profile.profile_info }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endfor %}
+{% endfor %} -->
 {% endblock %}
