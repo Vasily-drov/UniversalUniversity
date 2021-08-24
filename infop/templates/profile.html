@@ -8,9 +8,9 @@
   <div class="card">
     <div class="card-action">
         <div class="row">
-          <div class="col s4 push-s1">
+          <div class="col s12 m4 offset-m1">
             {% if profile.picture %}
-            <img src="{{ profile.picture.url }}" class="circle responsive-img materialboxed" width="250px">
+            <img src="{{ profile.picture.url }}" class="circle responsive-img">
             {% else %}
             <img src="{% static 'img/no_avatar.jpg' %}" class="circle responsive-img">
             {% endif %}
@@ -18,7 +18,7 @@
 
           <div class="right-align">
             {% if user.is_authenticated and user == profile.user %}
-            <a href="{% url 'edit-profile' %}" class="waves-effect waves-light btn black"><i class="material-icons">edit</i> Edit profile</a>
+            <a href="{% url 'edit-profile' %}" class="waves-effect waves-light btn black"><i class="material-icons">edit</i> edit</a>
             {% endif %}
 
             {% if user.is_authenticated and user != profile.user %}
@@ -32,9 +32,9 @@
             {% endif %}
           </div>
 
-          <div class="col s7 push-s3">
-            <h5><b>{{ profile.nickname }}</b></h5>
-            <h4>@{{ profile.user.username }}</h4>
+          <div class="col s10 offset-s1 m6 push-m1">
+            <h4><b>{{ profile.nickname }}</b></h4>
+            <h5>@{{ profile.user.username }}</h5>
             {{ profile.profile_info }}
             <h1><div class="selection"></div></h1>
           </div>
@@ -42,21 +42,21 @@
           {% include "new_list_modal.html" %}
 
           <div class="row">
-            <div class="col s2 offset-s1">
+            <div class="col s4 m2">
               <div class="icon-block">
                 <h3 class="center"><i class="material-icons">crop_original</i></h3>
                 <p class="center">Posts</p>
                 <h5 class="center">{{ posts_count }}</h5>
               </div>
             </div>
-            <div class="col s2">
+            <div class="col s4 m2">
               <div class="icon-block">
                 <h3 class="center"><i class="material-icons">people_outline</i></h3>
                 <p class="center">Followers</p>
                 <!-- <h5 class="center">{% if income == None %}0{% else %}{{ income.tier__price__sum }}{% endif %}</h5> -->
               </div>
             </div>
-            <div class="col s2">
+            <div class="col s4 m2">
               <div class="icon-block">
                 <h3 class="center"><i class="material-icons">recent_actors</i></h3>
                 <p class="center">Products</p>
@@ -87,9 +87,9 @@
 
     <div class="card-tabs">
       <ul class="tabs tabs-fixed-width">
-        <li class="tab col s3"><a target="_self" class="{% if page_type == 3 %}active{% endif %}" href="{% url 'profile' profile.user.username %}">Check-lists</a></li>
-        <li class="tab col s3"><a target="_self" class="{% if page_type == 1 %}active{% endif %}" href="{% url 'profilephotos' profile.user.username %}">Maraphones</a></li>
-        <li class="tab col s3"><a target="_self" class="{% if page_type == 2 %}active{% endif %}" href="{% url 'profilevideos' profile.user.username %}">Consultation</a></li>
+        <li class="tab col s4 m3"><a target="_self" class="{% if page_type == 3 %}active{% endif %}" href="{% url 'profile' profile.user.username %}">Check-lists</a></li>
+        <li class="tab col s4 m3"><a target="_self" class="{% if page_type == 1 %}active{% endif %}" href="{% url 'profilephotos' profile.user.username %}">Marathons</a></li>
+        <li class="tab col s4 m3"><a target="_self" class="{% if page_type == 2 %}active{% endif %}" href="{% url 'profilevideos' profile.user.username %}">Consultation</a></li>
       </ul>
     </div>
   </div>
@@ -110,15 +110,15 @@
 {% if page_type == 1 %}
 <div class="row">
   {% for post in posts %}
-  <div class="col s4">
-    <img class="materialboxed" width="325" src="{{ post.file.url }}">
+  <div class="col s12 m4">
+    <img class="materialboxed" width="100%" src="{{ post.file.url }}">
   </div>
   {% endfor %}
 </div>
 {% elif page_type == 2 %}
 <div class="row">
-  <div class="col s4">
-    <h2>Comming Soon...</h2>
+  <div class="col s12 m4">
+    <h4>Coming soon...</h4>
   </div>
   <!--
   {% for post in posts %}
@@ -135,7 +135,7 @@
 <div class="row">
   {% for post in posts %}
 
-  <div class="col s4">
+  <div class="col s12 m4">
     <div class="card">
 
       <div class="card-image">
@@ -145,7 +145,7 @@
         <!-- <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">favorite</i></a> -->
         {% else %}
         <div class="video-container">
-          <video class="responsive-video" controls="controls" preload="metadata">
+          <video class="responsive-video materialboxed" width="100%" controls="controls" preload="metadata">
             <source src="{{ post.content.first.file.url }}#t=0.5" type="video/mp4">
           </video>
         </div>
@@ -166,7 +166,7 @@
             <img src="{% static 'img/no_avatar.jpg' %}" class="circle responsive-img">
             {% endif %}
           </div> -->
-          <div class="col s4">
+          <div class="col s12 m4">
             <!-- <h6><b>{{ post.user.first_name }} {{ post.user.last_name }}</b></h6> -->
             <span>Published on: <br> <b>{{ post.posted | naturaltime }}</b></span>
           </div>
