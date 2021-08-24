@@ -14,11 +14,9 @@
 </head>
 <body>
 
-
   <nav class="white" role="navigation">
     <div class="nav-wrapper">
-      <!-- <a href="{% url 'index' %}" class="brand-logo"><img src="{% static 'img/logo.svg' %}" alt="sdf"></img>INFO G</a> -->
-      <img class="responsive-img"class="fixed-mid materialboxed" width="60px" src="{% static 'img/logo.svg' %}">
+      <a href="{% url 'index' %}"><img class="responsive-img"class="fixed-mid materialboxed" width="60px" src="{% static 'img/logo.svg' %}"></a>
       <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-down">
         <li><a href="{% url 'show-notifications' %}"><i class="material-icons left">favorite_border</i><span class="new badge amber">{{ count_notifications }}</span></a></li>
@@ -28,19 +26,15 @@
     </div>
   </nav>
 
-
-
   <ul id="slide-out" class="sidenav">
     <li><div class="user-view">
-      <h5>{{ nav_profile.user.first_name }} </h5>
+      <h5>{{ nav_profile.user.username }} </h5>
     </div></li>
     <li><div class="divider"></div></li>
     <li><a href="{% url 'fans_list' %}"><i class="material-icons">star</i>{{ fans }}     Purchases</a></li>
     <li><a href="{% url 'following_list' %}"><i class="material-icons">people</i>{{ follows }}     Subscriptions</a></li>
     <li><a href="{% url 'statistic' %}"><i class="material-icons">call_missed_outgoing</i>Statistic</a></li>
-
     <li><div class="divider"></div></li>
-    <!-- <li><a class="subheader">Payments</a></li> -->
     <li><a href="#!"><i class="material-icons">credit_card</i>Your payment methods</a></li>
     <li><a href="#!"><i class="material-icons">account_balance</i>Your payout methods</a></li>
     <li><div class="divider"></div></li>
@@ -48,30 +42,23 @@
     <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Log out</a></li>
   </ul>
 
-
 <div class="container">
   <div class="row">
-
     {% block banner %}
     {% endblock %}
 
     {% block content %}
     {% endblock %}
-    
   </div>
 </div>
-
-
     {% block icons %}
     {% endblock %}
 
-
+  {% block javascript %}
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %}"></script>
-  {% block javascript %}
   {% endblock %}
-
-  </body>
+</body>
 </html>

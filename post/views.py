@@ -1,19 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
-
-from post.forms import NewPostForm
-from comment.forms import CommentForm
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from post.models import Post, PostFileContent, Stream, Likes, Bookmark
+from post.forms import NewPostForm
+from comment.forms import CommentForm
+
+from post.models import Post, PostFileContent, Stream, Likes #, Bookmark
 from tier.models import Subscription #Tier,
 from comment.models import Comment
 
 # Create your views here.
-
 @login_required
 def index(request):
     user = request.user
@@ -29,6 +27,7 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
+
 
 @login_required
 def PostDetails(request, post_id):
@@ -59,18 +58,18 @@ def PostDetails(request, post_id):
         form = CommentForm()
     
     #To validate that the user can see the post
-    if user != post.user:
+    #if user != post.user:
         ##subscriber = Subscription.objects.get(subscriber=request.user, subscribed=post.user)
-        if (True): #subscriber.tier.number >= post.tier.number
-            visible = True
-        else:
-            visible = True #False
-    else:
-        visible = True
+        #if (True): #subscriber.tier.number >= post.tier.number
+            #visible = True
+        #else:
+            #visible = True #False
+    #else:
+        #visible = True
     
     context = {
         'post': post,
-        'visible': visible,
+        #'visible': visible,
         'liked': liked,
         'comments': comments,
         'form': form,
@@ -169,6 +168,7 @@ def like(request, post_id):
 
     return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
 
+
 @login_required
 def bookmark(request, post_id):
     user = request.user
@@ -189,6 +189,7 @@ def bookmark(request, post_id):
     except Exception as e:
         raise e
 
+'''
 @login_required
 def BookmarkList(request):
     bookmark_list = Bookmark.objects.get(user=request.user)
@@ -202,7 +203,7 @@ def BookmarkList(request):
         'bookmark_data': bookmark_data,
     }
 
-    return render(request, 'bookmark_list.html', context)
+    return render(request, 'bookmark_list.html', context)'''
 
 
 

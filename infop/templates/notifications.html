@@ -13,13 +13,14 @@
             {% else %}
                 <img src="{% static 'img/no_avatar.jpg' %}" class="circle responsive-img">
             {% endif %}
-                <span class="title">{{ notification.sender.first_name }} {{ notification.sender.last_name }}</span>
+                <span class="title">{{ notification.sender.first_name }}</span>
                 <p><b>@{{ notification.sender.username }}</b></p>
                 <a href="{% url 'delete-notification' notification.id %}" class="secondary-content"><i class="material-icons">delete</i></a>
                 <br>
                 <p style="font-style: italic;"><b>Liked your post</b></p>
                 <a href="{% url 'postdetails' notification.post.id %}">See post</a>
             </li>
+
     {% elif notification.notification_type == 2 %}
         <li class="collection-item avatar">
         {% if notification.sender.profile.picture %}
@@ -27,13 +28,14 @@
         {% else %}
             <img src="{% static 'img/no_avatar.jpg' %}" class="circle responsive-img">
         {% endif %}
-            <span class="title">{{ notification.sender.first_name }} {{ notification.sender.last_name }}</span>
+            <span class="title">{{ notification.sender.first_name }}</span>
             <p><b>@{{ notification.sender.username }}</b></p>
             <a href="{% url 'delete-notification' notification.id %}" class="secondary-content"><i class="material-icons">delete</i></a>
             <p>Commented: </p>
             <p style="font-style: italic;"><b>"{{ notification.text_preview }}"</b></p>
             <a href="{% url 'postdetails' notification.post.id %}">See post</a>
         </li>
+
     {% else %}
     <li class="collection-item avatar">
         {% if notification.sender.profile.picture %}
@@ -41,7 +43,7 @@
         {% else %}
             <img src="{% static 'img/no_avatar.jpg' %}" class="circle responsive-img">
         {% endif %}
-            <span class="title">{{ notification.sender.first_name }} {{ notification.sender.last_name }}</span>
+            <span class="title">{{ notification.sender.first_name }}</span>
             <p><b>@{{ notification.sender.username }}</b></p>
             <a href="{% url 'delete-notification' notification.id %}" class="secondary-content"><i class="material-icons">delete</i></a>
             <p style="font-style: italic;"><b>Subscribed to you!</b></p>

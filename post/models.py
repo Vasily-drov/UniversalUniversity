@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-import uuid
-
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+
+import uuid
 
 from tier.models import Subscription #Tier,
 from notifications.models import Notification
@@ -72,9 +72,9 @@ class Likes(models.Model):
         notify = Notification.objects.filter(post=post, sender=sender, notification_type=1)
         notify.delete()
 
-class Bookmark(models.Model):
-    posts = models.ManyToManyField(Post)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookmark_user')
+#class Bookmark(models.Model):
+    #posts = models.ManyToManyField(Post)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookmark_user')
 
 #Signals stuff for Likes:
 post_save.connect(Likes.user_liked_post, sender=Likes)
