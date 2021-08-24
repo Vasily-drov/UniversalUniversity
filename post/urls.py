@@ -1,5 +1,5 @@
 from django.urls import path
-from post.views import NewPost, PostDetails, like, bookmark, BookmarkList , Statistic
+from post.views import NewPost, PostDetails, like, bookmark , Statistic #, BookmarkList
 
 urlpatterns = [
     path('newpost/', NewPost, name='newpost'),

@@ -22,6 +22,8 @@
             {% endif %}
 
             {% if user.is_authenticated and user != profile.user %}
+            <a href="{% url 'subscribe' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Subscribe</a>
+            <a href="{% url 'subscribe' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Unsubscribe</a>
             {% if person_in_list == True %}
             <!-- <a href="{% url 'remove-from-list' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Remove</a> -->
             {% else %}

@@ -40,11 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'authy',
     'tier',
-    #R
     'post',
     'comment',
     'notifications',
-    #Removed direct
 ]
 
 MIDDLEWARE = [
