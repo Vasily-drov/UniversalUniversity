@@ -1,22 +1,48 @@
 
             <!-- Modal Structure For the new list form -->
-              <div id="modal2" class="modal">
+            <div id="modal1" class="modal">
                 <div class="modal-content">
-                  <h4>Create new list</h4>
-                  <p>Create a new list to add people to this custom list</p>
-                  <form role="form" method="POST" class="col s12">
-                    {% csrf_token %}
-                    <div class="row">
+                    <h4>Save to list</h4>
+                    <form role="form" method="POST" action="{% url 'add-to-list' %}" id="addtolistform">
+                        {% csrf_token %}
                         <div class="input-field col s12">
-                            {{ form.title }}
-                            <label for="title">Title for the list</label>
+                            <select name="list_item">
+                                <option value="" disabled selected>Choose from your custom lists</option>
+                                {% for favorite in favorite_list %}
+                                <option value="{{ favorite.id }}">{{ favorite.title }}</option>
+                                {% endfor %}
+                            </select>
+                            <label>Favorite People List</label>
                         </div>
-                    </div>
+                        <input type="hidden" name="to" value="{{ profile.user.username }}">
+                        <button class="btn amber" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                  <button type="submit" name="action" class="waves-effect waves-green btn-flat">Save</button>
-                </form>
+                    <a href="#modal2" class="modal-trigger">New List</a>
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
                 </div>
-        </div>
+            </div>
+
+            <div id="modal2" class="modal">
+                <div class="modal-content">
+                    <h4>Create new list</h4>
+                    <p>Create a new list to add people to this custom list</p>
+                    <form role="form" method="POST" class="col s12">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.title }}
+                                <label for="title">Title for the list</label>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    <button type="submit" name="action" class="waves-effect waves-green btn-flat">Save</button>
+                    </form>
+                </div>
+            </div>
              <!-- END Modal Structure For the list select -->

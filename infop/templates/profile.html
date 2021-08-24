@@ -18,11 +18,11 @@
 
           <div class="right-align">
             {% if user.is_authenticated and user == profile.user %}
-            <a href="{% url 'edit-profile' %}" class="waves-effect waves-light btn black"><i class="material-icons">edit</i>Edit profile</a>
+            <a href="{% url 'edit-profile' %}" class="waves-effect waves-light btn black"><i class="material-icons">edit</i> Edit profile</a>
             {% endif %}
 
             {% if user.is_authenticated and user != profile.user %}
-            {% if person_in_list == True %}
+             {% if person_in_list == True %}
             <a href="{% url 'remove-from-list' profile.user.username %}" class="waves-effect waves-light btn black"><i class="material-icons">favorite</i>Remove</a>
             {% else %}
             <a href="#modal1" class="modal-trigger"><i class="material-icons">favorite</i>Favorite</a>
@@ -31,42 +31,14 @@
           </div>
 
           <div class="col s7 push-s3">
-            <h2><b>{{ profile.user.first_name }} {{ user.last_name }} {{ user.nickname }}</b></h2>
+            <h5><b>{{ profile.nickname }}</b></h5>
             <h4>@{{ profile.user.username }}</h4>
             {{ profile.profile_info }}
             <h1><div class="selection"></div></h1>
           </div>
 
-
-          <!-- Modal Structure For the list select  -->
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-              <h4>Save to list</h4>
-              <form role="form" method="POST" action="{% url 'add-to-list' %}" id="addtolistform">
-                {% csrf_token %}
-                <div class="input-field col s12">
-                  <select name="list_item">
-                    <option value="" disabled selected>Choose from your custom lists</option>
-                    {% for favorite in favorite_list %}
-                    <option value="{{ favorite.id }}">{{ favorite.title }}</option>
-                    {% endfor %}
-                  </select>
-                  <label>Favorite People List</label>
-                </div>
-                <input type="hidden" name="to" value="{{ profile.user.username }}">
-                <button class="btn amber" type="submit" name="action">Submit
-                  <i class="material-icons right">send</i>
-                </button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <a href="#modal2" class="modal-trigger">New List</a>
-              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-            </div>
-          </div>
-          <!-- END Modal Structure For the list select -->
-
           {% include "new_list_modal.html" %}
+
           <div class="row">
             <div class="col s2 offset-s1">
               <div class="icon-block">
@@ -75,7 +47,6 @@
                 <h5 class="center">{{ posts_count }}</h5>
               </div>
             </div>
-
             <div class="col s2">
               <div class="icon-block">
                 <h3 class="center"><i class="material-icons">people_outline</i></h3>
@@ -83,7 +54,6 @@
                 <!-- <h5 class="center">{% if income == None %}0{% else %}{{ income.tier__price__sum }}{% endif %}</h5> -->
               </div>
             </div>
-
             <div class="col s2">
               <div class="icon-block">
                 <h3 class="center"><i class="material-icons">recent_actors</i></h3>
@@ -95,15 +65,15 @@
         </div>
     </div>
   </div>
-
+  <!--
     {% if user.is_authenticated and user != profile.user %}
     <div class="card-action">
       <div class="row">
         {% for tier in tiers %}
         <div class="col s12 m4">
           <div class="card-panel center-align">
-            <!-- <h3>${{ tier.price }}</h3>
-            <span>{{ tier.description }}</span>  -->
+             <h3>${{ tier.price }}</h3>
+            # <span>{{ tier.description }}</span>
             <br><br>
             <a href="{% url 'subscribe' profile.user.username tier.id %}" class="waves-effect waves-light btn amber"><i class="material-icons right">star</i>Subscribe</a>
           </div>
@@ -111,7 +81,7 @@
         {% endfor %}
       </div>
     </div>
-    {% endif %}
+    {% endif %} -->
 
     <div class="card-tabs">
       <ul class="tabs tabs-fixed-width">
@@ -120,24 +90,20 @@
         <li class="tab col s3"><a target="_self" class="{% if page_type == 2 %}active{% endif %}" href="{% url 'profilevideos' profile.user.username %}">Consultation</a></li>
       </ul>
     </div>
-
   </div>
-
-
 {% endblock %}
 
-
 {% block content %}
-{% if no_a_subscriber == False %}
-<!--
+<!-- {% if no_a_subscriber == False %}
+
 <div class="center-align">
   <br><br><br><br><br>
   <i class="material-icons large">lock</i>
   <h3>Subscribed to see {{ profile.user.first_name }} {{ profile.user.last_name }} content</h3>
   <br><br><br><br><br>
-</div> -->
+</div>
 
-{% else %}
+{% else %}  -->
 
 {% if page_type == 1 %}
 <div class="row">
@@ -149,16 +115,20 @@
 </div>
 {% elif page_type == 2 %}
 <div class="row">
+  <div class="col s4">
+    <h2>Comming Soon...</h2>
+  </div>
+  <!--
   {% for post in posts %}
   <div class="col s4">
     <video class="responsive-video" controls="controls" preload="metadata">
       <source src="{{ post.file.url }}#t=0.5" type="video/mp4">
     </video>
   </div>
-  {% endfor %}
+  {% endfor %} -->
+
 </div>
 {% else %}
-
 
 <div class="row">
   {% for post in posts %}
@@ -170,7 +140,7 @@
         {% if post.content.first.file.name|slice:"-3:" == 'jpg' %}
         <a href="{{ post.get_absolute_url }}"><img src="{{ post.content.first.file.url }}"></a>
         <span class="card-title"><b>{{ post.title }}</b></span>
-        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">favorite</i></a>
+        <!-- <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">favorite</i></a> -->
         {% else %}
         <div class="video-container">
           <video class="responsive-video" controls="controls" preload="metadata">
@@ -203,7 +173,7 @@
 
       <div class="card-action">
         <a href="{% url 'postlike' post.id %}"><i class="material-icons left">thumb_up</i>{{ post.likes_count }} </a>
-        <a href="#"><i class="material-icons">favorite</i> {{ post.favorites_count }} </a>
+        <!-- <a href="#"><i class="material-icons">favorite</i> {{ post.favorites_count }} </a> -->
         <a href="#"><i class="material-icons">comment</i> {{ post.comments_count }} </a>
       </div>
 
@@ -216,6 +186,7 @@
 
 {% endif %}
 
+<!--
 <div class="col s12 m12 center-align">
   {% if posts.has_previous %}
   <a href="?page={{ posts.previous_page_number }}" class="btn amber"><i class="material-icons right">arrow_back</i>Back</a>
@@ -224,5 +195,5 @@
   {% if posts.has_next %}
   <a href="?page={{ posts.next_page_number }}" class="btn amber"><i class="material-icons right">add</i>Load more</a>
   {% endif %}
-</div>
+</div> -->
 {% endblock %}
