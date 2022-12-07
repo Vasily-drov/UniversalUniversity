@@ -1,6 +1,4 @@
-# infop
-
-Universal University
+# Universal University
 Welcome to Universal University, a web-based education platform built using the Django web framework.
 
 Our goal is to provide a comprehensive and user-friendly platform for educators to create and manage online courses, and for students to easily find and enroll in courses that interest them.
