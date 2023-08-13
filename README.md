@@ -8,3 +8,5 @@ With Universal University, educators can create engaging and interactive online 
 To get started, simply sign up for an account and start exploring the available courses. Whether you're an educator looking to create and teach your own course, or a student looking to further your education, Universal University has something for you.
 
 We hope you enjoy using our platform and we look forward to helping you achieve your educational goals.
+
+Demo: https://universaluniversity.net
